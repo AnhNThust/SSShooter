@@ -8,10 +8,12 @@ public class EnemySpawnerForGroup : MonoBehaviour
 	public static EnemySpawnerForGroup Instance { get => instance; }
 
 	[SerializeField] private GameObject[] spawnPositions;
-    [SerializeField] private GameObject[] spawnObjects;
+	[SerializeField] private GameObject[] spawnObjects;
 	[SerializeField] private GameObject[] groups;
 	[SerializeField] private Transform group;
+
 	[SerializeField] private Stack<Transform> slots;
+	public Stack<Transform> Slots { get => slots; }
 
 	private void Awake()
 	{
@@ -47,10 +49,9 @@ public class EnemySpawnerForGroup : MonoBehaviour
 
 			Transform spawnTransform = GetRandomSpawnTransform();
 			GameObject obj = GetRandomSpawnObject();
-			MovementToGroup objToGroup = obj.GetComponent<MovementToGroup>();
-			objToGroup.Target = slots.Pop();
 			EnemyManagerTest.Instance.SpawnObject(obj, spawnTransform.position, spawnTransform.rotation);
-
+			//MovementToGroup objToGroup = obj.GetComponent<MovementToGroup>();
+			//objToGroup.Target = slots.Pop();
 			yield return new WaitForSeconds(5);
 		}
 	}
