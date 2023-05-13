@@ -2,25 +2,31 @@ using Assets.Scripts.Common;
 using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawnerFollowPath : MonoBehaviour
 {
-	[SerializeField] private GameObject[] spawnPositions;
-	[SerializeField] private GameObject[] spawnObjects;
-
+	[SerializeField] private Transform spawnPositionsParent;
+	[SerializeField] private Transform[] spawnPositions;
+	[SerializeField] private Transform[] spawnObjects;
 	[SerializeField] private GameObject spawnObject;
+
 	[SerializeField] private float timerWave = 2f;
 	[SerializeField] private int delay = 6;
 	[SerializeField] private int count = 0;
 
-	private void Reset()
+	[ContextMenu("Reload")]
+	private void Reload()
 	{
-		spawnPositions = GameObject.FindGameObjectsWithTag("SpawnPosition");
-	}
+		spawnPositions = new Transform[spawnPositionsParent.childCount];
+		for (int i = 0; i < spawnPositions.Length; i++)
+		{
+			spawnPositions[i] = spawnPositionsParent.GetChild(i).transform;
+		}
 
-	private void Awake()
-	{
-		spawnObjects = GameObject.FindGameObjectsWithTag("Enemy");
-		HideGameObject();
+		spawnObjects = new Transform[transform.childCount];
+		for(int i = 0; i < spawnObjects.Length; i++)
+		{
+			spawnObjects[i] = transform.GetChild(i).transform;
+		}
 	}
 
 	private void Start()
@@ -47,13 +53,13 @@ public class EnemySpawner : MonoBehaviour
 	protected virtual GameObject GetRandomSpawnPosition()
 	{
 		int randIndex = Random.Range(0, spawnPositions.Length);
-		return spawnPositions[randIndex];
+		return spawnPositions[randIndex].gameObject;
 	}
 
 	public GameObject GetRandomObject()
 	{
 		int randIndex = Random.Range(0, spawnObjects.Length);
-		return spawnObjects[randIndex];
+		return spawnObjects[randIndex].gameObject;
 	}
 
 	protected virtual void Spawn(GameObject prefab)
@@ -62,14 +68,6 @@ public class EnemySpawner : MonoBehaviour
 		//GameObject prefab = GetRandomObject();
 
 		//EnemyManager.Instance.SpawnObj(spawnPos.position, spawnPos.rotation);
-		EnemyManagerTest.Instance.SpawnObject(prefab, spawnTrans.position, spawnTrans.rotation);
-	}
-
-	public void HideGameObject()
-	{
-		foreach (var _spawnObject in spawnObjects)
-		{
-			_spawnObject.SetActive(false);
-		}
+		EnemyFollowPathManager.Instance.SpawnObject(prefab, spawnTrans.position, spawnTrans.rotation);
 	}
 }

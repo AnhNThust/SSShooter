@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class EnemyManagerTest : MonoBehaviour
 {
-	private static EnemyManagerTest instance;
-	public static EnemyManagerTest Instance { get => instance; }
-
 	[SerializeField] private Dictionary<EnemyType, Stack<GameObject>> poolObjects;
 	[SerializeField] private Transform container;
 
 	private void Awake()
 	{
-		if (instance != null) Debug.LogError("Only 1 EnemyManagerTest allow exists");
-
-		instance = this;
 		poolObjects = new Dictionary<EnemyType, Stack<GameObject>>();
 	}
 
@@ -40,8 +34,6 @@ public class EnemyManagerTest : MonoBehaviour
 			GetObjectFromPool(prefab, position, rotation);
 			break;
 		}
-
-
 	}
 
 	/// <summary>
