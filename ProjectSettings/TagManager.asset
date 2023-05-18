@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bullet
   - SpawnPosition
   - Enemy
   - Path
   - Group
+  - Undefined
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX

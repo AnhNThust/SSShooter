@@ -7,7 +7,7 @@ public class EnemyManagerTest : MonoBehaviour
 	[SerializeField] private Dictionary<EnemyType, Stack<GameObject>> poolObjects;
 	[SerializeField] private Transform container;
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		poolObjects = new Dictionary<EnemyType, Stack<GameObject>>();
 	}
@@ -21,7 +21,7 @@ public class EnemyManagerTest : MonoBehaviour
 			_ = CreatePoolFromKey(prefab);
 		}
 
-		foreach (EnemyType enemyType in poolObjects.Keys)
+		foreach (EnemyType enemyType in poolObjects.Keys) // duyet danh sach key trong dictionary
 		{
 			if (enemyProperty.EType != enemyType) continue;
 

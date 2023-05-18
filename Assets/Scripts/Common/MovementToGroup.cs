@@ -28,7 +28,6 @@ public class MovementToGroup : MonoBehaviour
 		}
 		else
 		{
-			//model.rotation = Quaternion.RotateTowards(model.rotation, Quaternion.Euler(0f, 0f, 180f), rotSpeed * Time.deltaTime);
 			model.up = Vector3.MoveTowards(model.up, Vector3.down, rotSpeed * Time.deltaTime);
 		}
 	}

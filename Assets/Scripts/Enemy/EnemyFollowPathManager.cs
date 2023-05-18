@@ -1,3 +1,4 @@
+using Assets.Scripts.Common;
 using UnityEngine;
 
 public class EnemyFollowPathManager : EnemyManagerTest
@@ -5,9 +6,10 @@ public class EnemyFollowPathManager : EnemyManagerTest
 	private static EnemyFollowPathManager instance;
 	public static EnemyFollowPathManager Instance { get => instance; }
 
-	private void Awake()
+	protected override void Awake()
 	{
-		if (instance != null) Debug.LogError("Only 1 EnemyManagerTest allow exists");
+		base.Awake();
+		if (instance != null) Debug.LogError("Only 1 EnemyFollowPathManager allow exists");
 
 		instance = this;
 	}

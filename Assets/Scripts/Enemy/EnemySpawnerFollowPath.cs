@@ -50,10 +50,10 @@ public class EnemySpawnerFollowPath : MonoBehaviour
 		}
 	}
 
-	protected virtual GameObject GetRandomSpawnPosition()
+	protected virtual Transform GetRandomSpawnPosition()
 	{
 		int randIndex = Random.Range(0, spawnPositions.Length);
-		return spawnPositions[randIndex].gameObject;
+		return spawnPositions[randIndex];
 	}
 
 	public GameObject GetRandomObject()
@@ -64,7 +64,7 @@ public class EnemySpawnerFollowPath : MonoBehaviour
 
 	protected virtual void Spawn(GameObject prefab)
 	{
-		Transform spawnTrans = GetRandomSpawnPosition().transform;
+		Transform spawnTrans = GetRandomSpawnPosition();
 		//GameObject prefab = GetRandomObject();
 
 		//EnemyManager.Instance.SpawnObj(spawnPos.position, spawnPos.rotation);

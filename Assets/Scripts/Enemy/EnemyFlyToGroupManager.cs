@@ -1,3 +1,4 @@
+using Assets.Scripts.Common;
 using UnityEngine;
 
 public class EnemyFlyToGroupManager : EnemyManagerTest
@@ -5,9 +6,10 @@ public class EnemyFlyToGroupManager : EnemyManagerTest
 	private static EnemyFlyToGroupManager instance;
 	public static EnemyFlyToGroupManager Instance { get => instance; }
 
-	private void Awake()
+	protected override void Awake()
 	{
-		if (instance != null) Debug.LogError("Only 1 EnemyManagerTest allow exists");
+		base.Awake();
+		if (instance != null) Debug.LogError("Only 1 EnemyFlyToGroupManager allow exists");
 
 		instance = this;
 	}
