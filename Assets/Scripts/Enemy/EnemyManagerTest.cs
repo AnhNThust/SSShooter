@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyManagerTest : MonoBehaviour
 {
-	[SerializeField] private Dictionary<EnemyType, Stack<GameObject>> poolObjects;
-	[SerializeField] private Transform container;
+	[SerializeField] protected Dictionary<EnemyType, Stack<GameObject>> poolObjects;
+	[SerializeField] protected Transform container;
 
 	protected virtual void Awake()
 	{
 		poolObjects = new Dictionary<EnemyType, Stack<GameObject>>();
 	}
 
-	public void SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
+	public virtual void SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
 	{
 		EnemyProperties enemyProperty = prefab.GetComponent<EnemyProperties>();
 
@@ -39,7 +39,7 @@ public class EnemyManagerTest : MonoBehaviour
 	/// <summary>
 	/// Tao object neu kiem tra trong pool khong con object
 	/// </summary>
-	public void CreateObjectToPool(GameObject prefab, Vector3 position, Quaternion rotation)
+	protected virtual void CreateObjectToPool(GameObject prefab, Vector3 position, Quaternion rotation)
 	{
 		GameObject _gameObject = Instantiate(prefab, position, rotation);
 		_gameObject.transform.parent = container;
@@ -75,7 +75,7 @@ public class EnemyManagerTest : MonoBehaviour
 	/// Lay ra phan tu co cung EnemyType voi prefab
 	/// </summary>
 	/// <param name="prefab"></param>
-	public void GetObjectFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
+	protected virtual void GetObjectFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
 	{
 		Stack<GameObject> pool = GetPool(prefab);
 		GameObject obj = pool.Pop();
@@ -86,7 +86,7 @@ public class EnemyManagerTest : MonoBehaviour
 	/// <summary>
 	/// Tra object ve pool
 	/// </summary>
-	public void ReturnObjectToPool(GameObject _object)
+	public virtual void ReturnObjectToPool(GameObject _object)
 	{
 		Stack<GameObject> pool = GetPool(_object);
 		pool.Push(_object);

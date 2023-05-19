@@ -5501,7 +5501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 439445634}
   delayShooting: 0.1
-  numberBarrel: 1
+  numberBarrel: 4
   degreeBetweenBarrel: 4
 --- !u!1 &956994553
 GameObject:
@@ -8944,6 +8944,7 @@ MonoBehaviour:
   - {fileID: 128799551}
   - {fileID: 1560193367}
   group: {fileID: 0}
+  countOfSlot: 0
 --- !u!1 &1701943396
 GameObject:
   m_ObjectHideFlags: 0

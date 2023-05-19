@@ -20,6 +20,7 @@ public class EnemySpawnerForGroup : MonoBehaviour
 	[SerializeField] private Transform groupsParent;
 	[SerializeField] private Transform[] groups;
 	[SerializeField] private Transform group;
+	[SerializeField] private int countOfSlot = 0;
 
 	private readonly float timeSpawn = 0.1f;
 
@@ -46,7 +47,7 @@ public class EnemySpawnerForGroup : MonoBehaviour
 		}
 
 		spawnObjects = new Transform[transform.childCount];
-		for(int i = 0; i < spawnObjects.Length; i++)
+		for (int i = 0; i < spawnObjects.Length; i++)
 		{
 			spawnObjects[i] = transform.GetChild(i).transform;
 		}
@@ -76,9 +77,19 @@ public class EnemySpawnerForGroup : MonoBehaviour
 				Transform spawnTransform = GetRandomSpawnTransform();
 				GameObject obj = GetRandomSpawnObject();
 				EnemyFlyToGroupManager.Instance.SpawnObject(obj, spawnTransform.position, spawnTransform.rotation);
+				countOfSlot++;
 			}
+
 			yield return new WaitForSeconds(timeSpawn);
 		}
+	}
+
+	public void UpdateSlotInGroup()
+	{
+		countOfSlot--;
+		if (canSpawn || group == null || countOfSlot > 0) return;
+		group = null;
+		canSpawn = true;
 	}
 
 	/// <summary>

@@ -1,8 +1,7 @@
 using UnityEngine;
 using Assets.Scripts.Common;
-using System.Collections;
-using Unity.IO.LowLevel.Unsafe;
-using System.Threading;
+using System;
+using Random = UnityEngine.Random;
 
 public class EnemyDamageReceiver : MonoBehaviour
 {
@@ -14,8 +13,8 @@ public class EnemyDamageReceiver : MonoBehaviour
 	[SerializeField] protected Transform explodeAnimParent;
 	[SerializeField] protected Transform[] explodeAnims;
 
-	EnemyProperties eProperty;
-	//int count = 0;
+	public Action callbackDie;
+	EnemyProperties eProperty;	
 
 	[ContextMenu("Reload")]
 	private void Reload()
@@ -45,10 +44,10 @@ public class EnemyDamageReceiver : MonoBehaviour
 		}
 		else
 		{
+			callbackDie?.Invoke();
 			EnemyFlyToGroupManager.Instance.ReturnObjectToPool(gameObject);
-			//count++;
 		}
-		Spawn();
+		ShowExplode();
 
 		ResetHp();
 	}
@@ -82,7 +81,7 @@ public class EnemyDamageReceiver : MonoBehaviour
 		return explodeAnims[randIndex].gameObject;
 	}
 
-	protected virtual void Spawn()
+	protected virtual void ShowExplode()
 	{
 		GameObject obj = GetRandomExplode();
 
